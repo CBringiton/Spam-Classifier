@@ -10,17 +10,17 @@ import pandas as pd
 import numpy as np
 import re
 import nltk
-from email.parser import Parser
-nltk.download('stopwords')
+from email.parser import Parser #for extracting body of email 
+nltk.download('stopwords') #stopwords contains irrelevent (which don't have contribution in prediction like this ,it etc) words.
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 dir='/scratch/hemantk/chitranjan/dat1'
 x=[]
 y=[]
 spaml=[]
-for dirn,sundir,finam in os.walk(dir):
+for dirn,sundir,finam in os.walk(dir):                                           #reading data from 38k .txt files and extraction of body
     print(dirn,'\n')
-    print(os.path.split(dirn)[0],' dm45 ',os.path.split(dirn)[1])
+    print(os.path.split(dirn)[0],' dm45 ',os.path.split(dirn)[1])                # of email .
     if(os.path.split(dirn)[1]=='spam'):
         for fn in finam:
             with open(os.path.join(dirn,fn),encoding="latin-1") as f:
@@ -37,12 +37,13 @@ for dirn,sundir,finam in os.walk(dir):
                  x.append(email.get_payload())
                  y.append(0)
 corpus = []
+#cleaning the text
 for i in range(0, len(x)):
-    review = re.sub('[^a-zA-Z]', ' ', x[i])
-    review = review.lower()
-    review = review.split()
+    review = re.sub('[^a-zA-Z]', ' ', x[i])                                            # keeping only alphabetes. 
+    review = review.lower()                                                            # 
+    review = review.split()                                                            # 
     ps = PorterStemmer()
-    review = [ps.stem(word) for word in review if not word in set(stopwords.words('english'))]
+    review = [ps.stem(word) for word in review if not word in set(stopwords.words('english'))]  # removing irrelevent words  
     review = ' '.join(review)
     corpus.append(review)
 from sklearn.feature_extraction.text import CountVectorizer
