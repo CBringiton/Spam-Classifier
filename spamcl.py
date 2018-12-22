@@ -62,7 +62,7 @@ y_pred = classifier.predict(X_test)
 # Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
-#accuraty = 92%
+#accuracy = 92% using naive bayes.
 #using ann
 import keras
 from keras.models import Sequential
@@ -71,7 +71,9 @@ classifier = Sequential()
 
 # Adding the input layer and the first hidden layer
 classifier.add(Dense(output_dim = 2500, init = 'uniform', activation = 'sigmoid', input_dim = 2500))
-
+#################################################################
+#regularization and tuning is not shown in this file#
+#################################################################
 # Adding the second hidden layer
 classifier.add(Dense(output_dim = 1250, init = 'uniform', activation = 'sigmoid'))
 
@@ -89,3 +91,4 @@ y_pred = (y_pred > 0.5)
 # Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix
 cm1 = confusion_matrix(y_test, y_pred)
+#accuracy 98 % using Ann.
